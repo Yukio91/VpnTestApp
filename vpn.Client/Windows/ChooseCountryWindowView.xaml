@@ -4,28 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:country="clr-namespace:vpn.Shared.Country;assembly=vpn.Shared"
-        xmlns:wpf="clr-namespace:FamFamFam.Flags.Wpf;assembly=FamFamFam.Flags.Wpf"
-        xmlns:local="clr-namespace:vpn.Client.Windows" 
         xmlns:viewmodel="clr-namespace:vpn.Client.ViewModel" 
         d:DataContext="{d:DesignInstance Type=viewmodel:ChooseCountryViewModel}"
         mc:Ignorable="d"
         Title="{StaticResource LS_ChooseCountryHeader}" Height="400" Width="500" >
 
-    <Window.Resources>
-        <wpf:CountryIdToFlagImageSourceConverter x:Key="CountryIdToFlagImageSourceConverter" />
+    <Window.Resources>        
         <DataTemplate x:Key="CountryFlagCellTemplate">
             <Image
                     d:DataContext="{d:DesignInstance country:Country}"
-                    Source="{Binding FlagCode, Converter={StaticResource CountryIdToFlagImageSourceConverter}}">
-                <Image.Style>
-                    <Style TargetType="{x:Type Image}">
-                        <Setter Property="Stretch" Value="None" />
-                        <Setter Property="Width" Value="23" />
-                        <Setter Property="Height" Value="18" />
-                        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
-                    </Style>
-                </Image.Style>
-            </Image>
+                    Source="{Binding FlagCode, Converter={StaticResource CountryIdToFlagImageSourceConverter}}" Style="{StaticResource CountryFlagImageStyle}"/>
         </DataTemplate>
     </Window.Resources>
     

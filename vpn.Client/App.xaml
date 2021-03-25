@@ -1,14 +1,18 @@
 ﻿<Application x:Class="vpn.Client.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:vpn.Client"
+             xmlns:local="clr-namespace:vpn.Client" 
+             xmlns:wpf="clr-namespace:FamFamFam.Flags.Wpf;assembly=FamFamFam.Flags.Wpf"
              StartupUri="Windows/MainWindow.xaml">
     
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/LocalizableStrings.xaml"/>
+                <ResourceDictionary Source="/Resources/CustomStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <wpf:CountryIdToFlagImageSourceConverter x:Key="CountryIdToFlagImageSourceConverter" />
         </ResourceDictionary>
 
     </Application.Resources>

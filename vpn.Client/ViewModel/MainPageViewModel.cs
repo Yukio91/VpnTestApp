@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using vpn.Client.Base;
 using vpn.Client.Utils;
 using vpn.Client.Windows;
@@ -15,8 +16,8 @@ namespace vpn.Client.ViewModel
     {
         private Country _selectedCountry;
 
-        public RelayCommand ConnectCommand { get; }
-        public RelayCommand ChooseCountryCommand { get; }
+        public ICommand ConnectCommand { get; }
+        public ICommand ChooseCountryCommand { get; }
 
         public ILogger Logger { get; }
         public NetworkManagerBase NetworkManager { get; }
@@ -30,10 +31,10 @@ namespace vpn.Client.ViewModel
             }
         }
 
-        public Func<ChooseCountryWindowView> CountryWindowFactory { get; set; }
 
-        public MainPageViewModel(NetworkManagerBase networkManager)
+        public MainPageViewModel(NetworkManagerBase networkManager, ILogger logger)
         {
+            Logger = logger;
             NetworkManager = networkManager;
             NetworkManager.StatusChanged += NetworkManager_StatusChanged;
 
@@ -60,8 +61,10 @@ namespace vpn.Client.ViewModel
 
         private void ChooseCountryCommandExecute()
         {
-            var window = CountryWindowFactory();
-            window.Owner = Application.Current.MainWindow;
+            var window = new ChooseCountryWindowView(this)
+            {
+                Owner = Application.Current.MainWindow
+            };
 
             var result = window.ShowDialog();
             if (result == true)

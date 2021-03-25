@@ -9,13 +9,12 @@
         d:DataContext="{d:DesignInstance Type=viewModel:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="{StaticResource LS_VpnClientHeader}" Height="450" Width="800">
-    <Grid>
-        <ContentPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding ViewModel.MainPageViewModel}">
-            <ContentPresenter.ContentTemplate>
-                <DataTemplate DataType="viewModel:MainPageViewModel">
-                    <view:MainPageView/>
-                </DataTemplate>
-            </ContentPresenter.ContentTemplate>
-        </ContentPresenter>
-    </Grid>
+
+    <ContentPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding MainPageViewModel}">
+        <ContentPresenter.ContentTemplate>
+            <DataTemplate DataType="viewModel:MainPageViewModel">
+                <view:MainPageView/>
+            </DataTemplate>
+        </ContentPresenter.ContentTemplate>
+    </ContentPresenter>
 </Window>

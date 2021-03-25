@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:vpn.Client.View" 
              xmlns:viewmodel="clr-namespace:vpn.Client.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:MainPageViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="300">
     <Grid>
         <Menu VerticalAlignment="Top">
             <MenuItem Command="{Binding ChooseCountryCommand}" Header="{StaticResource LS_ChooseCountryMenu}" />
@@ -23,18 +22,29 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding NetworkManager.CurrentCountry.FlagCode, Converter={StaticResource CountryIdToFlagImageSourceConverter}}" Style="{StaticResource FlagImageStyle}" />
-            <Button Grid.Column="1" Command="{Binding Connect}" Content="{StaticResource LS_BtnConnect}" />
+            <Image Source="{Binding NetworkManager.CurrentCountry.FlagCode, Converter={StaticResource CountryIdToFlagImageSourceConverter}}" Style="{StaticResource CountryFlagImageStyle}" />
+            <Button Grid.Column="1" Command="{Binding ConnectCommand}" Content="{StaticResource LS_BtnConnect}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Content" Value="{StaticResource LS_BtnConnect}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding NetworkManager.Status}" Value="Connected">
+                                <Setter Property="Content" Value="{StaticResource LS_BtnDisconnect}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <ProgressBar Grid.Row="1" Grid.Column="1" Height="5" Margin="0,5">
                 <ProgressBar.Style>
                     <Style TargetType="ProgressBar">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding NetworkService.Status}" Value="Connecting">
+                            <DataTrigger Binding="{Binding NetworkManager.Status}" Value="Connecting">
                                 <Setter Property="IsIndeterminate" Value="True"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding NetworkService.Status}" Value="Disconnecting">
+                            <DataTrigger Binding="{Binding NetworkManager.Status}" Value="Disconnecting">
                                 <Setter Property="IsIndeterminate" Value="True"/>
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>

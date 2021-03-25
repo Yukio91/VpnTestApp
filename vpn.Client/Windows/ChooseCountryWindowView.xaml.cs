@@ -20,10 +20,23 @@ namespace vpn.Client.Windows
     /// </summary>
     public partial class ChooseCountryWindowView : Window
     {
-        public ChooseCountryWindowView(Func<Action, ChooseCountryViewModel> viewModelFactory)
+        //public ChooseCountryWindowView(Func<Action, ChooseCountryViewModel> viewModelFactory)
+        //{
+        //    DataContext = viewModelFactory(() => { DialogResult = true; });
+        //    InitializeComponent();
+        //}
+        public ChooseCountryWindowView(MainPageViewModel mainPage)
         {
-            DataContext = viewModelFactory(() => { DialogResult = true; });
+            var viewModel = new ChooseCountryViewModel(mainPage);
+            viewModel.CloseWindow += ViewModel_CloseWindow;
+            DataContext = viewModel;
             InitializeComponent();
+        }
+
+        private void ViewModel_CloseWindow(object sender, EventArgs e)
+        {
+            DialogResult = true;
+            this.Close();
         }
     }
 }

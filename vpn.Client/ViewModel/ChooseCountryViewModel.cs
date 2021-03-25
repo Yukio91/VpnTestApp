@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using vpn.Client.Base;
 using vpn.Client.Utils;
 using vpn.Network.Base;
@@ -11,6 +12,7 @@ namespace vpn.Client.ViewModel
     {
         private Action _closeWindow;
         private Country _selectedCountry;
+        private readonly MainPageViewModel _mainPage;
 
         public Country SelectedCountry
         {
@@ -25,7 +27,7 @@ namespace vpn.Client.ViewModel
 
         public IEnumerable<Country> Countries { get; }
 
-        public RelayCommand AcceptChooseCommand { get; }
+        public ICommand AcceptChooseCommand { get; }
 
         public ChooseCountryViewModel(Action closeWindow, ICountryManager countryManager, NetworkManagerBase networkManager)
         {
@@ -36,15 +38,27 @@ namespace vpn.Client.ViewModel
             NetworkManager = networkManager;
         }
 
+        public ChooseCountryViewModel(MainPageViewModel mainPage): this(null, new CountryManager(), mainPage.NetworkManager)
+        {
+            _mainPage = mainPage;
+        }
+
         private void AcceptChooseCommandExecute(object obj)
         {
             NetworkManager.SetCountry(_selectedCountry);
-            _closeWindow();
+            OnCloseWindow();
         }
 
         private bool AcceptChooseCanExecute()
         {
             return _selectedCountry != null;
+        }
+
+        public event EventHandler<EventArgs> CloseWindow;
+
+        private void OnCloseWindow()
+        {
+            CloseWindow?.Invoke(this, new EventArgs());
         }
     }
 }

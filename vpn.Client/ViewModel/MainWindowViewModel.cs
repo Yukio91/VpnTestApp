@@ -1,5 +1,6 @@
 ﻿using vpn.Client.Base;
 using vpn.Network.Manager;
+using vpn.Shared.Logger;
 
 namespace vpn.Client.ViewModel
 {
@@ -10,7 +11,8 @@ namespace vpn.Client.ViewModel
         public MainWindowViewModel()
         {
             var networkManager = new NetworkManager();
-            MainPageViewModel = new MainPageViewModel(networkManager);
+            var logger = new Logger();
+            MainPageViewModel = new MainPageViewModel(networkManager, logger);
         }
     }
 }
