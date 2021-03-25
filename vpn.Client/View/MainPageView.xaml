@@ -23,12 +23,15 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Image Source="{Binding NetworkManager.CurrentCountry.FlagCode, Converter={StaticResource CountryIdToFlagImageSourceConverter}}" Style="{StaticResource CountryFlagImageStyle}" />
-            <Button Grid.Column="1" Command="{Binding ConnectCommand}" Content="{StaticResource LS_BtnConnect}">
+            <Button Grid.Column="1" Command="{Binding ConnectCommand}" >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Content" Value="{StaticResource LS_BtnConnect}"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding NetworkManager.Status}" Value="Connected">
+                                <Setter Property="Content" Value="{StaticResource LS_BtnDisconnect}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding NetworkManager.Status}" Value="Disconnecting">
                                 <Setter Property="Content" Value="{StaticResource LS_BtnDisconnect}"/>
                             </DataTrigger>
                         </Style.Triggers>

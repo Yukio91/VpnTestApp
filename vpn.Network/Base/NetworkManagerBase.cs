@@ -12,7 +12,7 @@ namespace vpn.Network.Base
         private Country _currentCountry;
 
         public ConnectionStatus Status { get => _status; protected set => OnStatusChanged(value); }
-        public Country CurrentCuntry { get => _currentCountry; protected set => OnCountryChanged(value); }
+        public Country CurrentCountry { get => _currentCountry; protected set => OnCountryChanged(value); }
 
         public abstract Task ConnectAsync();
 
@@ -20,7 +20,7 @@ namespace vpn.Network.Base
 
         public virtual void SetCountry(Country country)
         {
-            CurrentCuntry = country ?? throw new ArgumentNullException(nameof(country));
+            CurrentCountry = country ?? throw new ArgumentNullException(nameof(country));
         }
 
         protected void OnStatusChanged(ConnectionStatus status)

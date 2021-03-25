@@ -37,9 +37,15 @@ namespace vpn.Client.ViewModel
             Logger = logger;
             NetworkManager = networkManager;
             NetworkManager.StatusChanged += NetworkManager_StatusChanged;
+            NetworkManager.CountryChanged += NetworkManager_CountryChanged;
 
             ConnectCommand = new RelayCommand(async o => await ConnectCommandExecute(), ce => ConnectCanExecute());
             ChooseCountryCommand = new RelayCommand(o => ChooseCountryCommandExecute());
+        }
+
+        private void NetworkManager_CountryChanged(object sender, Network.Event.CountryChangedEventArgs e)
+        {
+            SelectedCountry = e.Country;
         }
 
         private void NetworkManager_StatusChanged(object sender, Network.Event.StatusChangedEventArgs e)
@@ -50,7 +56,10 @@ namespace vpn.Client.ViewModel
         private bool ConnectCanExecute()
         {
             var status = NetworkManager.Status;
-            return status == ConnectionStatus.Disconnected || status == ConnectionStatus.None;
+            return SelectedCountry != null
+                && (status == ConnectionStatus.Connected
+                || status == ConnectionStatus.Disconnected
+                || status == ConnectionStatus.None);
         }
 
         private async Task ConnectCommandExecute()
