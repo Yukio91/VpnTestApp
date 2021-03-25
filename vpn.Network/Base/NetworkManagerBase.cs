@@ -18,7 +18,7 @@ namespace vpn.Network.Base
 
         public abstract Task DisconnectAsync();
 
-        public virtual void SetCounty(Country country)
+        public virtual void SetCountry(Country country)
         {
             CurrentCuntry = country ?? throw new ArgumentNullException(nameof(country));
         }

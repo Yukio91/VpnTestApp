@@ -12,17 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using vpn.Client.ViewModel;
 
-namespace vpn.Client.View
+namespace vpn.Client.Windows
 {
     /// <summary>
-    /// Interaction logic for AboutPageView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class AboutPageView : UserControl
+    public partial class MainWindow : Window
     {
-        public AboutPageView()
+        internal MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
+
+        public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
     }
 }

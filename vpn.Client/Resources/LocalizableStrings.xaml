@@ -7,7 +7,9 @@
     <system:String x:Key="LS_BtnConnect">Подключиться</system:String>
     <system:String x:Key="LS_BtnDisconnect">Отключиться</system:String>
 
-    <system:String x:Key="LS_ChooseCountry">Выберите страну</system:String>
-    <system:String x:Key="LS_AboutHeader">Настройки</system:String>
+    <system:String x:Key="LS_ChooseCountryHeader">Выберите страну</system:String>
+    <system:String x:Key="LS_ChooseCountryMenu">Страна</system:String>
+    <system:String x:Key="LS_Country">Страна</system:String>
+    <system:String x:Key="LS_OkButton">Подтвердить</system:String>
     
 </ResourceDictionary>

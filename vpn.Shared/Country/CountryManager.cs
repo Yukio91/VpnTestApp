@@ -7,7 +7,7 @@ namespace vpn.Shared.Country
     {
         public IEnumerable<Country> GetCountries()
         {
-            throw new NotImplementedException();
+            return new List<Country>();
         }
     }
 }
